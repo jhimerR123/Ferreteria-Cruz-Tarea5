@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://ferreteria-cruz-tarea5.onrender.com";
 
 const MODULOS = [
   "Usuarios",

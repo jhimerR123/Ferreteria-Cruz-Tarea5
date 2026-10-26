@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Producto3D from "./Producto3D";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://ferreteria-cruz-tarea5.onrender.com";
 
 const formularioInicial = {
   codigo: "",

@@ -8,7 +8,7 @@ import Compras from "./components/Compras";
 import Ventas from "./components/Ventas";
 import Stock from "./components/Stock";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://ferreteria-cruz-tarea5.onrender.com";
 
 const modulos = [
   {
