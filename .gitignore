@@ -1,0 +1,35 @@
+# Variables de entorno y credenciales
+.env
+.env.*
+!.env.example
+
+# Entornos virtuales de Python
+venv/
+.venv/
+backend/venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Dependencias de Node.js
+node_modules/
+frontend-react/node_modules/
+
+# Archivos generados por Vite
+dist/
+frontend-react/dist/
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
+
+# Configuración local de editores
+.vscode/
+.idea/
+
+# Archivos de respaldo
+*.bak
+*.backup

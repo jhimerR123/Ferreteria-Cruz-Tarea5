@@ -1,0 +1,219 @@
+============================================================
+BASE DE DATOS: FERRETERIA CRUZ
+TOTAL DE TABLAS: 20
+============================================================
+
+TABLA: categoria
+------------------------------------------------------------
+Campo: id_categoria | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_categoria | Tipo: VARCHAR(100) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: clientes
+------------------------------------------------------------
+Campo: id_cliente | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_completo | Tipo: VARCHAR(150) | Permite NULL: False
+Campo: ci_nit | Tipo: VARCHAR(30) | Permite NULL: True
+Campo: telefono | Tipo: VARCHAR(25) | Permite NULL: True
+Campo: direccion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: compras
+------------------------------------------------------------
+Campo: id_compra | Tipo: INTEGER | Permite NULL: False
+Campo: id_proveedor | Tipo: INTEGER | Permite NULL: False
+Campo: id_usuario | Tipo: INTEGER | Permite NULL: False
+Campo: numero_compra | Tipo: VARCHAR(40) | Permite NULL: False
+Campo: fecha | Tipo: TIMESTAMP | Permite NULL: False
+Campo: total | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: estado | Tipo: VARCHAR(20) | Permite NULL: False
+FK: ['id_proveedor'] -> proveedores ['id_proveedor']
+FK: ['id_usuario'] -> usuarios ['id_usuario']
+
+TABLA: detalle_compras
+------------------------------------------------------------
+Campo: id_detalle_compra | Tipo: INTEGER | Permite NULL: False
+Campo: id_compra | Tipo: INTEGER | Permite NULL: False
+Campo: id_producto | Tipo: INTEGER | Permite NULL: False
+Campo: cantidad | Tipo: INTEGER | Permite NULL: False
+Campo: precio_compra | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: subtotal | Tipo: NUMERIC(14, 2) | Permite NULL: False
+FK: ['id_compra'] -> compras ['id_compra']
+FK: ['id_producto'] -> productos ['id_producto']
+
+TABLA: detalle_pago_compra
+------------------------------------------------------------
+Campo: id_detalle_pago_compra | Tipo: INTEGER | Permite NULL: False
+Campo: id_compra | Tipo: INTEGER | Permite NULL: False
+Campo: id_metodo_pago | Tipo: INTEGER | Permite NULL: False
+Campo: monto | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(250) | Permite NULL: True
+FK: ['id_compra'] -> compras ['id_compra']
+FK: ['id_metodo_pago'] -> metodo_pago ['id_metodo_pago']
+
+TABLA: detalle_pago_venta
+------------------------------------------------------------
+Campo: id_detalle_pago_venta | Tipo: INTEGER | Permite NULL: False
+Campo: id_venta | Tipo: INTEGER | Permite NULL: False
+Campo: id_metodo_pago | Tipo: INTEGER | Permite NULL: False
+Campo: monto | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(250) | Permite NULL: True
+FK: ['id_metodo_pago'] -> metodo_pago ['id_metodo_pago']
+FK: ['id_venta'] -> ventas ['id_venta']
+
+TABLA: detalle_venta
+------------------------------------------------------------
+Campo: id_detalle_venta | Tipo: INTEGER | Permite NULL: False
+Campo: id_venta | Tipo: INTEGER | Permite NULL: False
+Campo: id_producto | Tipo: INTEGER | Permite NULL: False
+Campo: cantidad | Tipo: INTEGER | Permite NULL: False
+Campo: precio_venta | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: subtotal | Tipo: NUMERIC(14, 2) | Permite NULL: False
+FK: ['id_producto'] -> productos ['id_producto']
+FK: ['id_venta'] -> ventas ['id_venta']
+
+TABLA: ferreteria
+------------------------------------------------------------
+Campo: id_ferreteria | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_ferreteria | Tipo: VARCHAR(150) | Permite NULL: False
+Campo: nit | Tipo: VARCHAR(30) | Permite NULL: True
+Campo: telefono | Tipo: VARCHAR(25) | Permite NULL: True
+Campo: direccion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: ciudad | Tipo: VARCHAR(100) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(250) | Permite NULL: True
+
+TABLA: marca
+------------------------------------------------------------
+Campo: id_marca | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_marca | Tipo: VARCHAR(100) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: metodo_pago
+------------------------------------------------------------
+Campo: id_metodo_pago | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_metodo_pago | Tipo: VARCHAR(80) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+Campo: codigo | Tipo: VARCHAR(30) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: movimientos_inventario
+------------------------------------------------------------
+Campo: id_movimiento | Tipo: INTEGER | Permite NULL: False
+Campo: id_stock | Tipo: INTEGER | Permite NULL: False
+Campo: id_usuario | Tipo: INTEGER | Permite NULL: False
+Campo: id_detalle_compra | Tipo: INTEGER | Permite NULL: True
+Campo: id_detalle_venta | Tipo: INTEGER | Permite NULL: True
+Campo: tipo_movimiento | Tipo: VARCHAR(10) | Permite NULL: False
+Campo: cantidad | Tipo: INTEGER | Permite NULL: False
+Campo: stock_anterior | Tipo: INTEGER | Permite NULL: False
+Campo: stock_nuevo | Tipo: INTEGER | Permite NULL: False
+Campo: observacion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: fecha_movimiento | Tipo: TIMESTAMP | Permite NULL: False
+FK: ['id_detalle_compra'] -> detalle_compras ['id_detalle_compra']
+FK: ['id_detalle_venta'] -> detalle_venta ['id_detalle_venta']
+FK: ['id_stock'] -> stock ['id_stock']
+FK: ['id_usuario'] -> usuarios ['id_usuario']
+
+TABLA: permisos
+------------------------------------------------------------
+Campo: id_permiso | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_permiso | Tipo: VARCHAR(100) | Permite NULL: False
+Campo: modulo | Tipo: VARCHAR(50) | Permite NULL: False
+Campo: submenu | Tipo: VARCHAR(80) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+
+TABLA: productos
+------------------------------------------------------------
+Campo: id_producto | Tipo: INTEGER | Permite NULL: False
+Campo: id_marca | Tipo: INTEGER | Permite NULL: False
+Campo: id_categoria | Tipo: INTEGER | Permite NULL: False
+Campo: id_unidad_de_medida | Tipo: INTEGER | Permite NULL: False
+Campo: codigo | Tipo: VARCHAR(50) | Permite NULL: False
+Campo: nombre_producto | Tipo: VARCHAR(150) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: precio_venta | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: precio_compra | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: costo_promedio | Tipo: NUMERIC(14, 4) | Permite NULL: False
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+FK: ['id_categoria'] -> categoria ['id_categoria']
+FK: ['id_marca'] -> marca ['id_marca']
+FK: ['id_unidad_de_medida'] -> unidad_de_medida ['id_unidad_de_medida']
+
+TABLA: proveedores
+------------------------------------------------------------
+Campo: id_proveedor | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_proveedor | Tipo: VARCHAR(150) | Permite NULL: False
+Campo: nit | Tipo: VARCHAR(30) | Permite NULL: True
+Campo: telefono | Tipo: VARCHAR(25) | Permite NULL: True
+Campo: correo | Tipo: VARCHAR(150) | Permite NULL: True
+Campo: direccion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: descripcion | Tipo: VARCHAR(250) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: rol_permiso
+------------------------------------------------------------
+Campo: id_rol_permiso | Tipo: INTEGER | Permite NULL: False
+Campo: id_rol | Tipo: INTEGER | Permite NULL: False
+Campo: id_permiso | Tipo: INTEGER | Permite NULL: False
+FK: ['id_permiso'] -> permisos ['id_permiso']
+FK: ['id_rol'] -> roles ['id_rol']
+
+TABLA: roles
+------------------------------------------------------------
+Campo: id_rol | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_rol | Tipo: VARCHAR(50) | Permite NULL: False
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+
+TABLA: stock
+------------------------------------------------------------
+Campo: id_stock | Tipo: INTEGER | Permite NULL: False
+Campo: id_producto | Tipo: INTEGER | Permite NULL: False
+Campo: id_ferreteria | Tipo: INTEGER | Permite NULL: False
+Campo: stock_actual | Tipo: INTEGER | Permite NULL: False
+Campo: stock_minimo | Tipo: INTEGER | Permite NULL: False
+Campo: ubicacion | Tipo: VARCHAR(120) | Permite NULL: True
+Campo: pasillo | Tipo: VARCHAR(50) | Permite NULL: True
+Campo: estante | Tipo: VARCHAR(50) | Permite NULL: True
+Campo: fecha_actualizacion | Tipo: TIMESTAMP | Permite NULL: False
+FK: ['id_ferreteria'] -> ferreteria ['id_ferreteria']
+FK: ['id_producto'] -> productos ['id_producto']
+
+TABLA: unidad_de_medida
+------------------------------------------------------------
+Campo: id_unidad_de_medida | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_medida | Tipo: VARCHAR(80) | Permite NULL: False
+Campo: abreviatura | Tipo: VARCHAR(15) | Permite NULL: False
+Campo: descripcion | Tipo: VARCHAR(200) | Permite NULL: True
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+
+TABLA: usuarios
+------------------------------------------------------------
+Campo: id_usuario | Tipo: INTEGER | Permite NULL: False
+Campo: id_rol | Tipo: INTEGER | Permite NULL: False
+Campo: nombre_completo | Tipo: VARCHAR(120) | Permite NULL: False
+Campo: telefono | Tipo: VARCHAR(25) | Permite NULL: True
+Campo: correo | Tipo: VARCHAR(150) | Permite NULL: True
+Campo: usuario | Tipo: VARCHAR(60) | Permite NULL: False
+Campo: clave | Tipo: VARCHAR(255) | Permite NULL: False
+Campo: estado | Tipo: BOOLEAN | Permite NULL: False
+Campo: fecha_registro | Tipo: TIMESTAMP | Permite NULL: False
+FK: ['id_rol'] -> roles ['id_rol']
+
+TABLA: ventas
+------------------------------------------------------------
+Campo: id_venta | Tipo: INTEGER | Permite NULL: False
+Campo: id_cliente | Tipo: INTEGER | Permite NULL: True
+Campo: id_usuario | Tipo: INTEGER | Permite NULL: False
+Campo: numero_venta | Tipo: VARCHAR(40) | Permite NULL: False
+Campo: fecha | Tipo: TIMESTAMP | Permite NULL: False
+Campo: total | Tipo: NUMERIC(14, 2) | Permite NULL: False
+Campo: estado | Tipo: VARCHAR(20) | Permite NULL: False
+FK: ['id_cliente'] -> clientes ['id_cliente']
+FK: ['id_usuario'] -> usuarios ['id_usuario']
+
+VERIFICACION FINALIZADA

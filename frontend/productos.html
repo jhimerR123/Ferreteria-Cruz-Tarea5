@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Productos - Ferretería Cruz</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h4>FERRETERÍA CRUZ</h4>
+            <p>Sistema de Gestión</p>
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Panel Principal</a>
+            <a href="productos.html" class="activo">Productos</a>
+        </nav>
+    </aside>
+
+    <main class="contenido">
+
+        <header class="topbar">
+            <div>
+                <h5>Gestión de Productos</h5>
+                <small>Ferretería Cruz</small>
+            </div>
+
+            <button
+                class="btn btn-outline-danger btn-sm"
+                id="btnCerrarSesion">
+                Cerrar Sesión
+            </button>
+        </header>
+
+        <section class="dashboard">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3>Productos</h3>
+                    <p class="descripcion">
+                        Registro, consulta y modificación de productos.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="btnNuevoProducto">
+                    Nuevo Producto
+                </button>
+            </div>
+
+            <div id="mensaje" class="alert d-none" role="alert"></div>
+
+            <div class="tarjeta">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Precio venta</th>
+                                <th>Precio compra</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaProductos">
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    Cargando productos...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FORMULARIO COMPARTIDO: REGISTRAR Y EDITAR -->
+    <div class="modal fade" id="modalProducto" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal">
+                        Registrar Producto
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                    </button>
+                </div>
+
+                <form id="formProducto">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" id="id_producto">
+
+                        <div id="mensajeModal"
+                             class="alert alert-danger d-none"
+                             role="alert"></div>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label for="codigo" class="form-label">
+                                    Código
+                                </label>
+                                <input
+                                    type="text"
+                                    id="codigo"
+                                    class="form-control"
+                                    maxlength="50"
+                                    required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="nombre_producto" class="form-label">
+                                    Nombre del producto
+                                </label>
+                                <input
+                                    type="text"
+                                    id="nombre_producto"
+                                    class="form-control"
+                                    maxlength="150"
+                                    required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="descripcion" class="form-label">
+                                    Descripción
+                                </label>
+                                <input
+                                    type="text"
+                                    id="descripcion"
+                                    class="form-control"
+                                    maxlength="250">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_marca" class="form-label">
+                                    ID Marca
+                                </label>
+                                <input
+                                    type="number"
+                                    id="id_marca"
+                                    class="form-control"
+                                    min="1"
+                                    value="1"
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_categoria" class="form-label">
+                                    ID Categoría
+                                </label>
+                                <input
+                                    type="number"
+                                    id="id_categoria"
+                                    class="form-control"
+                                    min="1"
+                                    value="1"
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_unidad" class="form-label">
+                                    ID Unidad
+                                </label>
+                                <input
+                                    type="number"
+                                    id="id_unidad"
+                                    class="form-control"
+                                    min="1"
+                                    value="1"
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="precio_compra" class="form-label">
+                                    Precio compra
+                                </label>
+                                <input
+                                    type="number"
+                                    id="precio_compra"
+                                    class="form-control"
+                                    min="0"
+                                    step="0.01"
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="precio_venta" class="form-label">
+                                    Precio venta
+                                </label>
+                                <input
+                                    type="number"
+                                    id="precio_venta"
+                                    class="form-control"
+                                    min="0"
+                                    step="0.01"
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="costo_promedio" class="form-label">
+                                    Costo promedio
+                                </label>
+                                <input
+                                    type="number"
+                                    id="costo_promedio"
+                                    class="form-control"
+                                    min="0"
+                                    step="0.0001"
+                                    required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="btnGuardar">
+                            Guardar Producto
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/productos.js"></script>
+
+</body>
+</html>
